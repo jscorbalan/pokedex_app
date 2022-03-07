@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/app/modules/pokemon_module/pages/pokemon_detail_page.dart';
 import 'package:pokedex_app/app/modules/pokemon_module/pages/pokemon_list_page.dart';
+import 'package:pokedex_app/app/routes/routes.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,10 +10,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: '/',
+      initialRoute: Routes.pokemonListRoute,
       routes: {
-        '/': (_) => const PokemonListPage(), 
+        Routes.pokemonListRoute: (_) => PokemonListPage(),
+        Routes.pokemonDetailRoute: (_) => const PokemonDetailPage(), 
       },
+      
     );
   }
 }

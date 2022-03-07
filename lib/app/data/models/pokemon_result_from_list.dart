@@ -1,8 +1,8 @@
 
 import 'dart:convert';
 
-class Pokemon {
-    Pokemon({
+class PokemonResultFromList {
+  PokemonResultFromList({
         required this.name,
         required this.url,
     });
@@ -10,20 +10,21 @@ class Pokemon {
     final String name;
     final String url;
 
-    Pokemon copyWith({
+  PokemonResultFromList copyWith({
         required String name,
         required String url,
     }) => 
-        Pokemon(
+      PokemonResultFromList(
             name: name ,
             url: url,
         );
 
-    factory Pokemon.fromRawJson(String str) => Pokemon.fromJson(json.decode(str));
+  factory PokemonResultFromList.fromRawJson(String str) =>
+      PokemonResultFromList.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
-    factory Pokemon.fromJson(Map<String, dynamic> json) => Pokemon(
+  factory PokemonResultFromList.fromJson(Map<String, dynamic> json) => PokemonResultFromList(
         name: json["name"],
         url: json["url"],
     );

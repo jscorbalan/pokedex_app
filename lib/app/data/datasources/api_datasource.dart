@@ -1,35 +1,43 @@
-import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:dartz/dartz.dart';
 
-import '../models/app_error.dart';
+import '../models/app_errors.dart';
+import '../models/pokemon.dart';
+import '../models/pokemon_list_result.dart';
 
-abstract class ApiDataSource {
-  Future<Either<AppError, List>> getAll();
-  Future<Either<AppError, List>> getPaginated(int limit, int offset);
+abstract class PokemonApiDataSource {
+  Future<Either<AppError, PokemonListResult>> getPaginated(int limit, int offset);
+  Future<Either<AppError, Pokemon>> getPokemonFromURL(String url);
 }
 
-class PokemonApi implements ApiDataSource {
-  late HttpClient _client;
-
-  PokemonApi() {
-    _client = HttpClient();
-  }
-
-  // PokemonApi{
-  //   _client = HttpClient();
-  // }
+class PokemonApiImpl implements PokemonApiDataSource {
 
   @override
-  Future<Either<AppError, List>> getAll() {
-    
-    // TODO: implement getAll
-    throw UnimplementedError();
+  Future<Either<AppError, PokemonListResult>> getPaginated(int limit, int offset) async {
+    try {
+      var url = Uri.parse('https://pokeapi.co/api/v2/pokemon?offset=$offset&limit=$limit');
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return right(PokemonListResult.fromRawJson(response.body));
+      }
+      return left(ServerError());
+    } catch (e) {
+      return left(AppCrashError());
+    }
   }
 
   @override
-  Future<Either<AppError, List>> getPaginated(int limit, int offset) {
-    // TODO: implement getPaginated
-    throw UnimplementedError();
+  Future<Either<AppError, Pokemon>> getPokemonFromURL(String stringUrl) async {
+    try {
+      var url = Uri.parse(stringUrl);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return right(Pokemon.fromRawJson(response.body));
+      }
+      return left(ServerError());
+    } catch (e) {
+      return left(AppCrashError());
+    }
   }
 }

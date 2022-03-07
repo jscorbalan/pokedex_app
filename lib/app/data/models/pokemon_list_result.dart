@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'pokemon_result.dart';
+import 'pokemon_result_from_list.dart';
 
-class PokemoListResult {
-    PokemoListResult({
+class PokemonListResult {
+  PokemonListResult({
         required this.count,
         this.next,
         this.previous,
@@ -13,30 +13,31 @@ class PokemoListResult {
     final int count;
     final String? next;
     final String? previous;
-    final List<Pokemon> results;
+  final List<PokemonResultFromList> results;
 
-    PokemoListResult copyWith({
+  PokemonListResult copyWith({
         required int count,
         String? next,
         String? previous,
-        required List<Pokemon> results,
+    required List<PokemonResultFromList> results,
     }) => 
-        PokemoListResult(
+      PokemonListResult(
             count: count,
             next: next,
             previous: previous,
             results: results,
         );
 
-    factory PokemoListResult.fromRawJson(String str) => PokemoListResult.fromJson(json.decode(str));
+  factory PokemonListResult.fromRawJson(String str) => PokemonListResult.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
-    factory PokemoListResult.fromJson(Map<String, dynamic> json) => PokemoListResult(
+  factory PokemonListResult.fromJson(Map<String, dynamic> json) => PokemonListResult(
         count: json["count"],
         next: json["next"],
         previous: json["previous"],
-        results: List<Pokemon>.from(json["results"].map((x) => Pokemon.fromJson(x))),
+        results: List<PokemonResultFromList>.from(
+            json["results"].map((x) => PokemonResultFromList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
