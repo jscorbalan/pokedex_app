@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../data/models/pokemon.dart';
 import '../../../../data/models/pokemon_result_from_list.dart';
-import '../../../../data/repositories/repository.dart';
+import '../../../../data/repositories/pokemon_repository.dart';
 import '../pokemon_list/pokemon_list_bloc.dart';
 
 part 'pokemon_event.dart';
