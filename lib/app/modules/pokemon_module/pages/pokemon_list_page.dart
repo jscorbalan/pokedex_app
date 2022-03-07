@@ -129,11 +129,11 @@ class PokemonListPage extends StatelessWidget {
                                         )
                                       : Row(
                                           children: [
-                                            const Spacer(),
-                                            Container(
-                                              height: 26,
-                                              width: 300,
-                                              color: Colors.grey[100],
+                                            Expanded(
+                                              child: Container(
+                                                height: 26,
+                                                color: Colors.grey[100],
+                                              ),
                                             ),
                                           ],
                                         ),
